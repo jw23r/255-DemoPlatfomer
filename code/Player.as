@@ -2,17 +2,18 @@
 	
 	import flash.display.MovieClip;
 	import flash.geom.Point;
+	import flash.ui.Keyboard;
 	
 	
 	public class Player extends MovieClip {
 		
 		private var gravity:Point = new Point(0,100);
-		
+		private var maxSpeed:Number = 200;
 		private var velocity:Point = new Point(1, 5);
 		
 		private const HORIZONTAL_ACCELERATION:Number = 800;
-		private const HORIZONTAL_DECELERATION:Number = 400;
-		private var maxSpeed:Number = 100;
+		private const HORIZONTAL_DECELERATION:Number = 800;
+		
 		
 		public function Player() {
 			// constructor code
@@ -21,10 +22,25 @@
 		public function update():void {
 			
 			
-			if(KeyboardInput.keyLeft) velocity.x -= HORIZONTAL_ACCELERATION * Time.dt;
-			if(KeyboardInput.keyRight) velocity.x += HORIZONTAL_ACCELERATION * Time.dt;
+			if(KeyboardInput.OnKeyDown(Keyboard.SPACE)){
+				trace("jump");
+			}
 			
-			if(!KeyboardInput.keyLeft && !KeyboardInput.keyRight){ // left and right not being pressed...
+			
+			handleWalking();
+			doPhysics();			
+			detectGround();
+			
+		}
+		/**
+		 * This function looks at the keyboard input in order to accelerate the player
+		 * left or right. As a result, this function changes the player's velocity.
+		 */
+		private function handleWalking():void {
+			if(KeyboardInput.IsKeyDown(Keyboard.LEFT)) velocity.x -= HORIZONTAL_ACCELERATION * Time.dt;
+			if(KeyboardInput.IsKeyDown(Keyboard.RIGHT)) velocity.x += HORIZONTAL_ACCELERATION * Time.dt;
+			
+			if(!KeyboardInput.IsKeyDown(Keyboard.LEFT) && !KeyboardInput.IsKeyDown(Keyboard.RIGHT)){ // left and right not being pressed...
 				if(velocity.x < 0){ // moving left
 					velocity.x += HORIZONTAL_DECELERATION * Time.dt; // accelerate right
 					if(velocity.x > 0) velocity.x = 0; // clamp at 0
@@ -35,18 +51,16 @@
 				}
 			}
 			
-			doPhysics();
-			
-			detectGround();
-			
 		}
 		private function doPhysics():void {
 			// apply gravity to velocity:
 			velocity.x += gravity.x * Time.dt;
 			velocity.y += gravity.y * Time.dt;
-			//constrain to max speed:
-			if(velocity.x > maxSpeed) velocity.x = maxSpeed;
-			if(velocity.x < - maxSpeed) velocity.x = -maxSpeed;
+			
+			// constrain to maxSpeed:
+			if(velocity.x > maxSpeed) velocity.x = maxSpeed; // clamp going right
+			if(velocity.x <-maxSpeed) velocity.x = -maxSpeed; // clamp going left
+			
 			// apply velocity to position:
 			x += velocity.x * Time.dt;
 			y += velocity.y * Time.dt;
