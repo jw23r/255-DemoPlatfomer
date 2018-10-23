@@ -8,14 +8,15 @@
 		
 		
 		public function Game() {
-			// constructor code
-		KeyboardInput
-			addEventListener(Event.ENTER_FRAME, gameloop);
+			KeyboardInput.setup(stage);
+			addEventListener(Event.ENTER_FRAME, gameLoop);
 		}
-		private function gameloop(e:Event):void{
+		private function gameLoop(e:Event):void {
 			Time.update();
 			player.update();
-		}
-	}
+		} // ends gameLoop()
+		
+		
+	} // ends Game class
 	
-}
+} // ends package
