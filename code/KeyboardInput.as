@@ -26,7 +26,7 @@
 			//trace(e.keyCode);
 			updateKey(e.keyCode, true);
 		}
-		static private function handleKeyUp(e:KeyboardEvent):void {
+		static public function handleKeyUp(e:KeyboardEvent):void {
 			
 			updateKey(e.keyCode, false);
 		}
