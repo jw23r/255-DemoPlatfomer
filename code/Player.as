@@ -23,8 +23,10 @@
 		private var isJumping = false;
 		private var airJumpsLeft: Number = 1;
 	private var airJumpsMax: Number = 1;
+				public var collider:AABB;
 		public function Player() {
 			// constructor code
+			collider = new AABB(width/2,height/2)
 		} // ends constructor
 
 		public function update(): void {
@@ -38,6 +40,7 @@
 			doPhysics();
 			detectGround();
 			handleJumping();
+			collider.calcEdges(x,y);
 
 		}
 		/**
