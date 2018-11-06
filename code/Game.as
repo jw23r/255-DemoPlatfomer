@@ -2,11 +2,12 @@
 
 	import flash.display.MovieClip;
 	import flash.events.Event;
+	import flash.geom.Point;
 
 
 	public class Game extends MovieClip {
 
-
+static public var platforms:Array = new Array;
 		public function Game() {
 			KeyboardInput.setup(stage);
 			addEventListener(Event.ENTER_FRAME, gameLoop);
@@ -19,13 +20,19 @@
 			KeyboardInput.update();
 		} // ends gameLoop()
 		private function doCollisionDetection(): void {
-			if (player.collider.checkOverlap(platform.collider)) {
-				platform.alpha = .5;
-			} else
-				platform.alpha = 1;
-		}
-	
+			
+for (var i:int = 0; i < platforms.length; i++){
+	if (player.collider.checkOverlap(platforms[i].collider)) {
+//if overlap find fix apply fix				
+				var fix: Point = player.collider.findOverlapFix(platforms[i].collider);
+				//apply fix
+				player.applyFix(fix);
+			}
+}
+			
 
-} // ends Game class
 
-} // ends package
+		} // ends Game class
+
+	} // ends package
+}

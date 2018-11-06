@@ -10,6 +10,7 @@
 			// constructor code
 			collider = new AABB(width/2, height/2);
 			collider.calcEdges(x,y);
+			Game.platforms.push(this);
 		}
 	}
 	

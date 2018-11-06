@@ -26,7 +26,7 @@
 			//trace(e.keyCode);
 			updateKey(e.keyCode, true);
 		}
-		static public function handleKeyUp(e:KeyboardEvent):void {
+		static private function handleKeyUp(e:KeyboardEvent):void {
 			
 			updateKey(e.keyCode, false);
 		}
@@ -42,12 +42,8 @@
 		static public function OnKeyDown(keyCode:int):Boolean {
 			if(keyCode < 0) return false;
 			if(keyCode >= keysState.length) return false;
-			
-			if(keysState[keyCode] == false) return false;
-			if(keysPrevState[keyCode] == true) return false;
-			
-			return true;
-			//return (keyStates[keyCode] && !keysPrevState[keyCode]);
+
+			return (keysState[keyCode] && !keysPrevState[keyCode]);
 			
 		}
 
