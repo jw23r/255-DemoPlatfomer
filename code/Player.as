@@ -37,7 +37,7 @@
 			handleJumping();
 			handleWalking();
 			doPhysics();
-//detectGround();
+			//detectGround();
 
 			collider.calcEdges(x, y);
 			isGrounded = false;
@@ -113,7 +113,7 @@
 				isGrounded = true;
 				airJumpsLeft = airJumpsMax;
 			}
-			collider.calcEdges(x,y);
+			collider.calcEdges(x, y);
 		}
 		private function detectGround(): void {
 			// look at y position

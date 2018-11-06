@@ -7,7 +7,7 @@
 
 	public class Game extends MovieClip {
 
-static public var platforms:Array = new Array;
+		static public var platforms: Array = new Array;
 		public function Game() {
 			KeyboardInput.setup(stage);
 			addEventListener(Event.ENTER_FRAME, gameLoop);
@@ -20,16 +20,16 @@ static public var platforms:Array = new Array;
 			KeyboardInput.update();
 		} // ends gameLoop()
 		private function doCollisionDetection(): void {
-			
-for (var i:int = 0; i < platforms.length; i++){
-	if (player.collider.checkOverlap(platforms[i].collider)) {
-//if overlap find fix apply fix				
-				var fix: Point = player.collider.findOverlapFix(platforms[i].collider);
-				//apply fix
-				player.applyFix(fix);
+
+			for (var i: int = 0; i < platforms.length; i++) {
+				if (player.collider.checkOverlap(platforms[i].collider)) {
+					//if overlap find fix apply fix				
+					var fix: Point = player.collider.findOverlapFix(platforms[i].collider);
+					//apply fix
+					player.applyFix(fix);
+				}
 			}
-}
-			
+
 
 
 		} // ends Game class
